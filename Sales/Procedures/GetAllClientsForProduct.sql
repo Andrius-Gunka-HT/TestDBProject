@@ -1,0 +1,18 @@
+﻿CREATE PROCEDURE [Sales].[GetAllClientsForProduct]
+	@ProductId INT
+AS
+
+SET NOCOUNT ON;
+
+BEGIN TRY
+	BEGIN TRANSACTION;
+
+	SELECT C.[Name], C.[Surname]
+	FROM [Sales].[Clients] AS C
+	WHERE C.[ProductId] = @ProductId;
+
+	COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION;
+END CATCH;
